@@ -41,9 +41,9 @@
 
 ## Utilizadores e permissões:
 * ### Anonimous
-  apenas pode observar os produtos, utilizar as views de pesquisar produto e fazer um carrinho temporário guardado em memória local até este fazer o registo.
+apenas pode observar os produtos, utilizar as views de pesquisar produto e fazer um carrinho temporário guardado em memória local até este fazer o registo.
 * ### Client
-  Tem todas as funcionalidades ao seu dispor menos as de "add_product()" , "edit_product()" e "delete_product()".
+Tem todas as funcionalidades ao seu dispor menos as de "add_product()" , "edit_product()" e "delete_product()".
 Também não tem acesso a mexer na BD e criar novos utilizadores com permissões distintas.
 * ### Admin
 Tem acesso a toda a aplicação e gestão de dados desde a sua íntegra.
