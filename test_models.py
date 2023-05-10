@@ -1,13 +1,4 @@
-import unittest
+from django.test import TestCase
+from WebApp.models import Product, Cart, Order, Client
 
-class MyTestCase(unittest.TestCase):
-    def test_something(self):
-        self.assertEqual(True, False)  # add assertion here
-
-
-if __name__ == '__main__':
-    unittest.main()
-
-
-# User passou
-# Client passou
+print("hello world")

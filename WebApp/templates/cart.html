@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Cart</title>
+</head>
+<body>
+    {% block content %}
+        <h1> Carrinho de {{ user.username }}</h1>
+        {% csrf_token %}
+        {% if products %}
+            <ul>
+                {% for product in products %}
+                    <li>
+                        {{ product.name }} : {{ product.price }} €
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+
+    {% endblock %}
+
+</body>
+</html>
