@@ -17,11 +17,11 @@ class Client(models.Model):
 
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    products = models.ManyToManyField(Product, on_delete=models.CASCADE)
+    products = models.ManyToManyField(Product)
     last_change = models.DateTimeField()
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.RESTRICT)
     cart = models.ForeignKey(Cart, on_delete=models.RESTRICT)
-    payment_method = models.CharField()
+    payment_method = models.CharField(max_length=30)
     charged = models.FloatField()

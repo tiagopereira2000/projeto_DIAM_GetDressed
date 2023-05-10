@@ -57,3 +57,14 @@ In[4]:chicken_teriyaki_sandwich.sauces.add(bbq_sauce)
 In[5]:chicken_teriyaki_sandwich.sauces.add(mayo_sauce)
 In[6]:chicken_teriyaki_sandwich.sauces.all()
 Out[1]:<QuerySet [<Sauce: Barbeque>, <Sauce: Mayonnaise>]>
+
+
+### Superuser:
+username : admin
+password : admin
+
+### user2: Maria
+
+### produtos:
+tshirt básica, 15.5
+casaco ganga, 50
