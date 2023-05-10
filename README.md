@@ -47,3 +47,24 @@ Tem todas as funcionalidades ao seu dispor menos as de "add_product()" , "edit_p
 Também não tem acesso a mexer na BD e criar novos utilizadores com permissões distintas.
 * ### Admin
 Tem acesso a toda a aplicação e gestão de dados desde a sua íntegra.
+
+
+### Utilização de campos ManyToManyField:
+> In[1]: chicken_teriyaki_sandwich = Sandwich.objects.create(name="Chicken Teriyaki Sandwich")
+In[2]:bbq_sauce = Sauce.objects.create(name="Barbeque")
+In[3]:mayo_sauce = Sauce.objects.create(name="Mayonnaise")
+In[4]:chicken_teriyaki_sandwich.sauces.add(bbq_sauce)
+In[5]:chicken_teriyaki_sandwich.sauces.add(mayo_sauce)
+In[6]:chicken_teriyaki_sandwich.sauces.all()
+Out[1]:<QuerySet [<Sauce: Barbeque>, <Sauce: Mayonnaise>]>
+
+
+### Superuser:
+username : admin
+password : admin
+
+### user2: Maria
+
+### produtos:
+tshirt básica, 15.5
+casaco ganga, 50
