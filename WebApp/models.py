@@ -44,7 +44,7 @@ class Cart(models.Model):
 class CartProduct(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    amount = models.PositiveIntegerField()
+    amount = models.PositiveIntegerField(default=1)
 
     def __str__(self):
         return "carrinho de:" + self.cart.client.name + "adicionado "\
