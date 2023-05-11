@@ -6,7 +6,9 @@
 </head>
 <body>
     <header>
-        <button href={% url "cart" %}>Ver Carrinho</button>
+        <button>
+            <a href={% url "cart" %}>Ver Carrinho</a>
+        </button>
     </header>
     {% block content %}
         <h1> Olá {{ user.username }}</h1>
@@ -15,7 +17,7 @@
             <ul>
                 {% for product in products %}
                     <li>
-                        {{ product.name }} : {{ product.price }} €
+                        <a href={% url "product" product.id %}>{{ product.name }} : {{ product.price }} € </a>
                     </li>
                 {% endfor %}
             </ul>

@@ -2,7 +2,7 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import Product, Cart, Order, Client
 @login_required(login_url='login')
@@ -24,6 +24,12 @@ def logoutview(request):
     logout(request)
     return redirect('/login')
 
+@login_required(login_url='login')
 def cart(request):
     # in_cart = Cart.user.cart_set
     return render(request, 'cart.html')
+
+def product_detail(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    context = {"product": product}
+    return render(request, 'product.html', context)

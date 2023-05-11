@@ -18,9 +18,8 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, default=None)
     image = models.ImageField(upload_to="images/", default=None)
 
-    # tags = models.ManyToManyRel(Tags)
     def __str__(self):
-        return self.name + " : " + str(self.stock) + " : " + str(self.price)
+        return self.name
 
 
 class Client(models.Model):
