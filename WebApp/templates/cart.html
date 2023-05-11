@@ -12,7 +12,14 @@
     <ul>
         {% if products %}
         {% for product in products %}
-        <li>{{ product.name }} - {{ product.price }}</li>
+        <li>{{ product.name }} - {{ product.price }}
+            <form method="post" action="{% url 'remove_product' product_id=product.id %}">
+                {% csrf_token %}
+                <input type="hidden" name="product_id" value="{{ product.id }}">
+                <button type="submit">Remover</button>
+            </form>
+        </li>
+
         {% empty %}
         <li>Seu carrinho está vazio.</li>
         {% endfor %}

@@ -5,6 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Product, Cart, Order, Client
+from django.shortcuts import get_object_or_404, redirect
 @login_required(login_url='login')
 def home(request):
     products = Product.objects.all()
@@ -36,3 +37,18 @@ def cart(request):
 
     # Renderiza o template de exibição do carrinho com os produtos
     return render(request, 'cart.html', {'products': products})
+
+
+def remove_product(request, product_id):
+    cart = request.user.client.cart
+    product = get_object_or_404(Product, id=product_id)
+    cart.product.remove(product)
+    cart.save()
+    return redirect('cart')
+
+def add2cart(request, product_id):
+    cart = request.user.client.cart
+    product = get_object_or_404(Product, id=product_id)
+    cart.product.add(product)
+    cart.save()
+    return redirect('home')

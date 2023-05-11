@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>GetDressed</title>
 </head>
 <body>
     <header>
@@ -16,6 +16,11 @@
                 {% for product in products %}
                     <li>
                         {{ product.name }} : {{ product.price }} €
+                        <form method="post" action="{% url 'add2cart' product_id=product.id %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="product_id" value="{{ product.id }}">
+                            <button type="submit">Adicionar</button>
+                        </form>
                     </li>
                 {% endfor %}
             </ul>
