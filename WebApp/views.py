@@ -33,3 +33,7 @@ def product_detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     context = {"product": product}
     return render(request, 'product.html', context)
+
+def edit_product(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    return render(request, 'editProduct.html', {"product":product})

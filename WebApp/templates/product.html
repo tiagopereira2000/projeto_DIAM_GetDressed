@@ -4,10 +4,20 @@
     <meta charset="UTF-8">
     <title>Detalhes do Produto</title>
 </head>
-<body>
-{% csrf_token %}
-<h2>{{ product.name }}</h2>
 
-<h2></h2>
+<body>
+<h2>{{ product.name }}</h2>
+{% csrf_token %}
+{% if product.image %}
+    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+{% endif %}
+
+<h3>{{ product.price }}</h3>
+<h3>{{ product.description }}</h3>
+
+{% if user.is_staff %}
+    <a href={% url "edit_product" product.id %}>Editar</a>
+{% endif %}
+
 </body>
 </html>
