@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Product, Cart, Order, Client
+from .models import Product, Cart, Order, Client, CartProduct
 from django.shortcuts import get_object_or_404, redirect
 @login_required(login_url='login')
 def home(request):
@@ -42,13 +42,30 @@ def cart(request):
 def remove_product(request, product_id):
     cart = request.user.client.cart
     product = get_object_or_404(Product, id=product_id)
-    cart.product.remove(product)
-    cart.save()
+    existing_cart_product = CartProduct.objects.filter(cart=cart, product=product)
+    if existing_cart_product:
+        existing_cart_product = existing_cart_product[0]
+    if existing_cart_product.amount > 1:
+        existing_cart_product.amount -= 1
+        existing_cart_product.save()
+    else:
+        existing_cart_product.delete()
+        cart.product.remove(product)
+        cart.save()
+
     return redirect('cart')
 
 def add2cart(request, product_id):
     cart = request.user.client.cart
     product = get_object_or_404(Product, id=product_id)
+    existing_cart_product = CartProduct.objects.filter(cart=cart, product=product)
+    if existing_cart_product:
+        existing_cart_product = existing_cart_product[0]
+        existing_cart_product.amount += 1
+        existing_cart_product.save()
+    else:
+        new_cart_product = CartProduct(cart=cart, product=product, amount=1)
+        new_cart_product.save()
     cart.product.add(product)
     cart.save()
     return redirect('home')

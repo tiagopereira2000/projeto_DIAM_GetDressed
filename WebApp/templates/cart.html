@@ -12,7 +12,7 @@
     <ul>
         {% if products %}
         {% for product in products %}
-        <li>{{ product.name }} - {{ product.price }}
+        <li>{{ product.name }} - {{ product.price }} - Quantidade:{{product.cartproduct_set.first.amount}}
             <form method="post" action="{% url 'remove_product' product_id=product.id %}">
                 {% csrf_token %}
                 <input type="hidden" name="product_id" value="{{ product.id }}">
