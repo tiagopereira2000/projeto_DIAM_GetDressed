@@ -9,7 +9,13 @@
         <button><a href="{% url 'cart' %}">Ver Carrinho</a></button>
     </header>
     {% block content %}
-        <h1> Olá {{ user.username }}</h1>
+        <h1> Olá {{ user.username }}
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit">Encerrar Sessão</button>
+            </form>
+
+        </h1>
         {% csrf_token %}
         {% if products %}
             <ul>

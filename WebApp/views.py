@@ -23,7 +23,7 @@ def loginview(request):
 
 def logoutview(request):
     logout(request)
-    return redirect('/login')
+    return redirect('login')
 
 def cart(request):
     # Obtém o cliente associado ao usuário atual
