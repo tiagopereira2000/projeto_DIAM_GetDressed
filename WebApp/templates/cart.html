@@ -8,18 +8,19 @@
     {% block content %}
         <h1> Carrinho de {{ user.username }}</h1>
         {% csrf_token %}
+    <h1>Seu Carrinho de Compras</h1>
+    <ul>
         {% if products %}
-            <ul>
-                {% for product in products %}
-                    <li>
-                        {{ product.name }} : {{ product.price }} €
-                    </li>
-                {% endfor %}
-            </ul>
+        {% for product in products %}
+        <li>{{ product.name }} - {{ product.price }}</li>
+        {% empty %}
+        <li>Seu carrinho está vazio.</li>
+        {% endfor %}
         {% endif %}
-
-
+    </ul>
     {% endblock %}
+
+
 
 </body>
 </html>

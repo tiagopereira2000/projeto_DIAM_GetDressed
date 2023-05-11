@@ -6,7 +6,7 @@
 </head>
 <body>
     <header>
-        <button href={% url "cart" %}>Ver Carrinho</button>
+        <button><a href="{% url 'cart' %}">Ver Carrinho</a></button>
     </header>
     {% block content %}
         <h1> Olá {{ user.username }}</h1>

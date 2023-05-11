@@ -25,5 +25,14 @@ def logoutview(request):
     return redirect('/login')
 
 def cart(request):
-    # in_cart = Cart.user.cart_set
-    return render(request, 'cart.html')
+    # Obtém o cliente associado ao usuário atual
+    client = request.user.client
+
+    # Obtém o carrinho do cliente
+    cart = client.cart
+
+    # Obtém todos os produtos do carrinho
+    products = cart.product.all()
+
+    # Renderiza o template de exibição do carrinho com os produtos
+    return render(request, 'cart.html', {'products': products})
