@@ -1,24 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-{% extends 'home.html' %}
 <head>
     <meta charset="UTF-8">
-    <title>Carrinho</title>
+    <title>My Cart</title>
 </head>
 <body>
+{% block content %}
+<h1> Carrinho de {{ user.username }}</h1>
 {% csrf_token %}
-    {% block content %}
-        <h1> O seu carrinho</h1>
-        {% if products %}
-            <ul>
-                {% for product in products %}
-                    <li>
-                        {{ product.name }} : {{ product.price }} €
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endblock %}
+<h1>Seu Carrinho de Compras</h1>
+<ul>
+    {% if products %}
+    {% for product in products %}
+    <li>{{ product.name }} - {{ product.price }} - Quantidade:{{product.cartproduct_set.first.amount}}
+        <form method="post" action="{% url 'removefromcart' product_id=product.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="product_id" value="{{ product.id }}">
+            <button type="submit">Remover</button>
+        </form>
+    </li>
+
+    {% empty %}
+    <li>O seu carrinho está vazio.</li>
+    {% endfor %}
+    {% endif %}
+</ul>
+{% endblock %}
+
+
 
 </body>
 </html>
