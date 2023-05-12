@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+{% include 'home.html' %}
 <head>
     <meta charset="UTF-8">
     <title>Detalhes do Produto</title>
@@ -9,11 +10,13 @@
 <h2>{{ product.name }}</h2>
 {% csrf_token %}
 {% if product.image %}
-    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+    <img class="product-image" src="{{ product.image.url }}" alt="{{ product.name }}">
 {% endif %}
 
-<h3>{{ product.price }}</h3>
+<h3>{{ product.price }} €</h3>
 <h3>{{ product.description }}</h3>
+<button id="add2cart_btn">add to cart
+</button>
 
 {% if user.is_staff %}
     <a href={% url "edit_product" product.id %}>Editar</a>

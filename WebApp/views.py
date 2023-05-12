@@ -5,6 +5,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import Product, Cart, Order, Client
+from .forms import *
+
 @login_required(login_url='login')
 def home(request):
     products = Product.objects.all()
@@ -36,4 +38,11 @@ def product_detail(request, product_id):
 
 def edit_product(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
-    return render(request, 'editProduct.html', {"product":product})
+    if request.method=='POST':
+        form = ProductForm(request.POST, request.FILES, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect('edit_product', product_id=product_id)
+    else:
+        form = ProductForm(instance=product)
+    return render(request, 'editProduct.html', {"form":form, "product":product})

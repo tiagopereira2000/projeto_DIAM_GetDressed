@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 # from django.core.checks import Tags
 from django.db import models
+import djangoProject.settings
 
 
 # Create your models here.
@@ -16,7 +17,7 @@ class Product(models.Model):
     stock = models.IntegerField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, default=None)
-    image = models.ImageField(upload_to="images/", default=None)
+    image = models.ImageField(upload_to='images/', default=None)
 
     def __str__(self):
         return self.name

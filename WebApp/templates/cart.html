@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+{% include 'home.html' %}
 <head>
     <meta charset="UTF-8">
-    <title>My Cart</title>
+    <title>Carrinho</title>
 </head>
 <body>
+    {% csrf_token %}
     {% block content %}
-        <h1> Carrinho de {{ user.client.name }}</h1>
-        {% csrf_token %}
+        <h1> O seu carrinho</h1>
         {% if products %}
             <ul>
                 {% for product in products %}
@@ -17,8 +18,6 @@
                 {% endfor %}
             </ul>
         {% endif %}
-
-
     {% endblock %}
 
 </body>
