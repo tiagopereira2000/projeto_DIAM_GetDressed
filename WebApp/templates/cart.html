@@ -9,32 +9,33 @@
 {% block content %}
 {% csrf_token %}
 <h1>O Seu Carrinho</h1>
+{% if products %}
 <ul>
-    {% if products %}
     {% for product in products %}
-        <li>
-            <h3>{{ product.name }} - {{ product.price }} - Quantidade: {{product.cartproduct_set.first.amount}}</h3>
+    <li>
+        <h3>{{ product.name }} - {{ product.price }} €- Quantidade: {{product.cartproduct_set.first.amount}}</h3>
 
-            <form method="post" action="{% url 'removefromcart' product_id=product.id %}">
-                {% csrf_token %}
-                {% if product.image %}
-                    <img class="product-image" src="{{ product.image.url }}" alt="{{ product.name }}">
-                {% endif %}
-                <input type="hidden" name="product_id" value="{{ product.id }}">
-                <br>
-                <button type="submit">Remover</button>
-            </form>
-        </li>
-        <br>
-
-    {% empty %}
-    <li>O seu carrinho está vazio.</li>
+        <form method="post" action="{% url 'removefromcart' product_id=product.id %}">
+            {% csrf_token %}
+            {% if product.image %}
+            <img class="product-image" src="{{ product.image.url }}" alt="{{ product.name }}">
+            {% endif %}
+            <input type="hidden" name="product_id" value="{{ product.id }}">
+            <br>
+            <button type="submit">Remover</button>
+        </form>
+        <form method="post" action="{% url 'checkout' %}">
+            {% csrf_token %}
+            <input type="submit" value="Comprar">
+        </form>
+    </li>
+    <br>
     {% endfor %}
-    {% endif %}
 </ul>
-    <button>
-       Finalizar Compra
-    </button>
+{% else %}
+<p>O seu carrinho está vazio.</p>
+{% endif %}
+
 {% endblock %}
 
 
