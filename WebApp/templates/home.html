@@ -7,7 +7,7 @@
     <title>Home</title>
 </head>
 <body>
-
+{% csrf_token %}
     <header>
         <button id="home_btn">
             <a href={% url "home" %}>Início</a>
@@ -19,17 +19,17 @@
         <h1>{{ user.username }}</h1>
         <form method="post" action="{% url 'logout' %}">
             <button type="submit">Encerrar Sessão</button>
-            {% csrf_token %}
+
         </form>
     </header>
-    {% block content %}
 
+    {% block content %}
         <section class="product-section">
         {% if products %}
             {% for product in products %}
                 <div class="product-item">
                 {% if product.image %}
-                    <img class="product-image" src="{{ product.image.url }}">
+                    <img class="product-image" src="{{ product.image.url }}" alt="">
                 {% endif %}
                     <br>
                     <a href={% url "product" product.id %}>{{ product.name }} : {{ product.price }} € </a>
@@ -37,7 +37,6 @@
             {% endfor %}
         {% endif %}
         </section>
-
     {% endblock %}
 
 </body>

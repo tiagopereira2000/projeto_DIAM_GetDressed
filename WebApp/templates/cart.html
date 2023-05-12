@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+{% extends 'home.html' %}
 <head>
     <meta charset="UTF-8">
-    <title>My Cart</title>
+    <title>Carrinho</title>
 </head>
 <body>
-    {% csrf_token %}
+{% csrf_token %}
     {% block content %}
         <h1> O seu carrinho</h1>
         {% if products %}
