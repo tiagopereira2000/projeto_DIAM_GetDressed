@@ -7,7 +7,6 @@
     <title>Home</title>
 </head>
 <body>
-{% csrf_token %}
     <header>
         <button id="home_btn">
             <a href={% url "home" %}>Início</a>
@@ -18,8 +17,8 @@
 
         <h1>{{ user.username }}</h1>
         <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
             <button type="submit">Encerrar Sessão</button>
-
         </form>
     </header>
 
