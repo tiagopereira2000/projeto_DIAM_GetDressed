@@ -7,17 +7,23 @@
     <title>Home</title>
 </head>
 <body>
-<header>
-    <button id="home_btn">
-        <a href={% url "home" %}>Início</a>
-    </button>
-    <button id="cart_btn">
-        <a href={% url "cart" %}>Ver Carrinho</a>
-    </button>
-    <h1>{{ user.username }}</h1>
+
+    <header>
+        <button id="home_btn">
+            <a href={% url "home" %}>Início</a>
+        </button>
+        <button id="cart_btn">
+            <a href={% url "cart" %}>Ver Carrinho</a>
+        </button>
+
+        <h1>{{ user.username }}</h1>
+        <form method="post" action="{% url 'logout' %}">
+            <button type="submit">Encerrar Sessão</button>
+            {% csrf_token %}
+        </form>
     </header>
     {% block content %}
-        {% csrf_token %}
+
         <section class="product-section">
         {% if products %}
             {% for product in products %}

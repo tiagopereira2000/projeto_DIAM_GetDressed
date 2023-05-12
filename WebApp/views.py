@@ -24,7 +24,7 @@ def loginview(request):
 
 def logoutview(request):
     logout(request)
-    return redirect('/login')
+    return redirect('login')
 
 @login_required(login_url='login')
 def cart(request):
