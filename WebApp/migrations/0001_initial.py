@@ -75,7 +75,7 @@ class Migration(migrations.Migration):
             name='CartProduct',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('amount', models.PositiveIntegerField()),
+                ('amount', models.PositiveIntegerField(default=1)),
                 ('cart', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='WebApp.cart')),
                 ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='WebApp.product')),
             ],
