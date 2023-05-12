@@ -46,3 +46,47 @@ def edit_product(request, product_id):
     else:
         form = ProductForm(instance=product)
     return render(request, 'editProduct.html', {"form":form, "product":product})
+
+def cart(request):
+    # Obtém o cliente associado ao usuário atual
+    client = request.user.client
+
+    # Obtém o carrinho do cliente
+    cart = client.cart
+
+    # Obtém todos os produtos do carrinho
+    products = cart.product.all()
+
+    # Renderiza o template de exibição do carrinho com os produtos
+    return render(request, 'cart.html', {'products': products})
+
+def removefromcart(request, product_id):
+    cart = request.user.client.cart
+    product = get_object_or_404(Product, id=product_id)
+    existing_cart_product = CartProduct.objects.filter(cart=cart, product=product)
+    if existing_cart_product:
+        existing_cart_product = existing_cart_product[0]
+    if existing_cart_product.amount > 1:
+        existing_cart_product.amount -= 1
+        existing_cart_product.save()
+    else:
+        existing_cart_product.delete()
+        cart.product.remove(product)
+        cart.save()
+
+    return redirect('cart')
+
+def add2cart(request, product_id):
+    cart = request.user.client.cart
+    product = get_object_or_404(Product, id=product_id)
+    existing_cart_product = CartProduct.objects.filter(cart=cart, product=product)
+    if existing_cart_product:
+        existing_cart_product = existing_cart_product[0]
+        existing_cart_product.amount += 1
+        existing_cart_product.save()
+    else:
+        new_cart_product = CartProduct(cart=cart, product=product, amount=1)
+        new_cart_product.save()
+    cart.product.add(product)
+    cart.save()
+    return redirect('home')
