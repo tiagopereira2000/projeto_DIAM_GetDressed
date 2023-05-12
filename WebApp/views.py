@@ -115,3 +115,13 @@ def end_order(request):
     cart = request.user.client.cart
     CartProduct.objects.filter(cart=cart).delete()
     return redirect('home')
+
+def create_product(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = ProductForm()
+    return render(request, 'create_product.html', {'form': form})
