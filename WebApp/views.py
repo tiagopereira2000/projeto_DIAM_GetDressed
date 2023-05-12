@@ -99,3 +99,19 @@ def add2cart(request, product_id):
     cart.product.add(product)
     cart.save()
     return redirect('home')
+
+def checkout(request):
+    cart = request.user.client.cart
+    cart_products = CartProduct.objects.filter(cart=cart)
+    products = cart.product.all()
+    total = sum(cp.product.price * cp.amount for cp in cart_products)
+    context = {
+        'products': products,
+        'total': total
+    }
+    return render(request, 'checkout.html', context)
+
+def end_order(request):
+    cart = request.user.client.cart
+    CartProduct.objects.filter(cart=cart).delete()
+    return redirect('home')
