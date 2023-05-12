@@ -18,6 +18,7 @@
 
         <h1>{{ user.username }}</h1>
         <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
             <button type="submit">Encerrar Sessão</button>
 
         </form>
