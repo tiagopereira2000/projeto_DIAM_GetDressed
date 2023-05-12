@@ -47,7 +47,20 @@ def edit_product(request, product_id):
         form = ProductForm(instance=product)
     return render(request, 'editProduct.html', {"form":form, "product":product})
 
-def remove_product(request, product_id):
+def cart(request):
+    # Obtém o cliente associado ao usuário atual
+    client = request.user.client
+
+    # Obtém o carrinho do cliente
+    cart = client.cart
+
+    # Obtém todos os produtos do carrinho
+    products = cart.product.all()
+
+    # Renderiza o template de exibição do carrinho com os produtos
+    return render(request, 'cart.html', {'products': products})
+
+def removefromcart(request, product_id):
     cart = request.user.client.cart
     product = get_object_or_404(Product, id=product_id)
     existing_cart_product = CartProduct.objects.filter(cart=cart, product=product)

@@ -13,7 +13,7 @@
     {% if products %}
     {% for product in products %}
     <li>{{ product.name }} - {{ product.price }} - Quantidade:{{product.cartproduct_set.first.amount}}
-        <form method="post" action="{% url 'remove_product' product_id=product.id %}">
+        <form method="post" action="{% url 'removefromcart' product_id=product.id %}">
             {% csrf_token %}
             <input type="hidden" name="product_id" value="{{ product.id }}">
             <button type="submit">Remover</button>
@@ -21,7 +21,7 @@
     </li>
 
     {% empty %}
-    <li>Seu carrinho está vazio.</li>
+    <li>O seu carrinho está vazio.</li>
     {% endfor %}
     {% endif %}
 </ul>
