@@ -53,6 +53,7 @@ def edit_product(request, product_id):
     return render(request, 'editProduct.html', {"form": form, "product": product})
 
 
+@login_required(login_url='login')
 def cart(request):
     # Obtém o cliente associado ao usuário atual
     client = request.user.client
@@ -83,7 +84,7 @@ def removefromcart(request, product_id):
 
     return redirect('cart')
 
-
+@login_required(login_url='login')
 def add2cart(request, product_id):
     cart = request.user.client.cart
     product = get_object_or_404(Product, id=product_id)
