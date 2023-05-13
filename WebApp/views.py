@@ -10,8 +10,18 @@ from .forms import *
 
 @login_required(login_url='login')
 def home(request):
+    form = ProductSearchForm()
     products = Product.objects.all()
-    context = {"products": products}
+
+    if request.method == 'GET' and 'search_query' in request.GET:
+        search_query = request.GET['search_query']
+        if search_query:
+            products = products.filter(name__icontains=search_query)
+
+    context = {
+        'form': form,
+        'products': products,
+    }
     return render(request, 'home.html', context)
 
 

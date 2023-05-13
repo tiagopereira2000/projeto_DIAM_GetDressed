@@ -9,29 +9,20 @@
 </head>
 <body>
 <header>
-        <div style="float: left">
-            <a href={% url "home" %}><button id="home_btn">
-            Início
-            </button></a>
         {% if user.client %}
         <a href={% url "cart" %}><button id="cart_btn">
             Ver Carrinho
         </button></a>
         {% endif %}
-        </div>
 
-
+        <a href={% url "home" %}>
         <img src="{% static 'style/img/GetdressedLOGO.png' %}" alt="getdressed.logo"
-             style="height: 100px">
-
-        <a href={% url 'user_profile' %}><h1>{{ user.username }}</h1></a>
-
-        <div style="float: right">
+             id="home_logo">
+        </a>
 
 
-            <a href={% url "logout" %}><button id="cart_btn">
-                Encerrar Sessão
-            </button></a>
+        <div class="user-buttons">
+            <a href={% url 'user_profile' %}><h1>{{ user.username }}</h1></a>
         </div>
 
 

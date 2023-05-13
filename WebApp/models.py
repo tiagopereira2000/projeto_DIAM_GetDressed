@@ -6,9 +6,16 @@ import djangoProject.settings
 
 # Create your models here.
 # modelos de dados : Produto, Carrinho, Encomenda, Utilizador
+class Size(models.Model):
+    nome = models.CharField(max_length=10)
+
+    def __str__(self):
+        return self.nome
+
 
 class Category(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50) #sapatos, camisolas, casacos, etc.
+    sizes = models.ManyToManyField(Size)
 
 
 class Product(models.Model):

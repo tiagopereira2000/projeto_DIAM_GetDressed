@@ -9,19 +9,32 @@
 <body>
 {% block content %}
 
+    <ul>
         {% if user.client %}
-            <ul>
             <li><h1>{{ user.client.name }}</h1></li>
             {% if user.client.profile_image %}
-                <li><img src="{% static 'media/images/default_client.png' %}"
+                <li>
+                    <img src="{% static 'media/images/default_client.png' %}"
                          alt="default" style="height:200px; width:200px">
                 </li>
                 <br>
-                <li><a href={% url "edit_profile" %}><button style="background-color: dodgerblue">Editar Perfil</button></a></li>
+                <li>
+                    <img class="product-image" src="{{ user.client.profile_image.url }}" alt="default">
+                </li>
             {% endif %}
-            </ul>
-
+                <li><a href={% url "edit_profile" %}><button style="background-color: dodgerblue">Editar Perfil</button></a></li>
         {% endif %}
+            <li>
+                <a href={% url "logout" %}>
+                    <button class="logout-button">
+                    Encerrar Sessão
+                    </button>
+                </a>
+            </li>
+    </ul>
+
+
+
 
 
 {% endblock %}

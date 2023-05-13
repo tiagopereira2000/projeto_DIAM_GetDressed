@@ -16,11 +16,14 @@
 <h3>{{ product.price }} €</h3>
 <h3>{{ product.description }}</h3>
 
+{% if user.client %}
 <form method="post" action="{% url 'add2cart' product_id=product.id %}">
     {% csrf_token %}
     <input type="hidden" name="product_id" value="{{ product.id }}">
     <button type="submit">Adicionar ao Carrinho</button>
 </form>
+{% endif %}
+
 <br>
 {% if user.is_authenticated and user.is_staff %}
     <a href={% url "edit_product" product.id %}><button>Editar</button></a>

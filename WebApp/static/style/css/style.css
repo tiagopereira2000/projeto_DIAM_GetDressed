@@ -1,5 +1,5 @@
 header {
-    background-color: whitesmoke;
+    background-color: aliceblue;
     background-repeat: no-repeat;
     padding: 10px;
     display: flex;
@@ -110,6 +110,7 @@ section{
 }
 
 
+
 label {
   margin-bottom: 10px;
 }
@@ -184,4 +185,51 @@ button.container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
+  height: auto;
+}
+
+.search-container {
+    float: left;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  width: 100%;
+}
+
+.search-button {
+  width: auto;
+}
+
+.aside {
+  width: 25%;
+  float: left;
+}
+
+.user-buttons{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    height: auto;
+    justify-content: space-between;
+    float: right;
+}
+
+.logout-button{
+  margin: 20px;
+  background-color: white;
+}
+
+.logout-button:hover{
+  background-color: indianred;
+}
+
+#home_logo{
+  height: 100px;
+  object-fit: cover; /* Para manter a proporção da imagem e preencher o espaço definido */
+  transition: box-shadow 0.3s ease;
+}
+#home_logo:hover{
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
 }

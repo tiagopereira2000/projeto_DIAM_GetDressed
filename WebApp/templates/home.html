@@ -1,14 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-
+{% load static %}
 <head>
     <meta charset="UTF-8">
     {% include 'base.html' %}
     <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style/css/style.css' %}">
 </head>
 <body>
-
+<main>
     {% block content %}
+
+        <div class="search-container">
+            <form method="GET" action="{% url 'home' %}">
+                    {{ form.search_query }}
+                    <button type="submit" class="search-button">Pesquisar</button>
+            </form>
+        <br>
+            {% if user.is_authenticated and user.is_staff %}
+                <a href="{% url 'create_product' %}"><button>Criar Produto</button> </a>
+            {% endif %}
+        </div>
+
+
         <section class="product-section">
         {% if products %}
             {% for product in products %}
@@ -23,11 +37,13 @@
                 </div>
             {% endfor %}
         {% endif %}
-            {% if user.is_authenticated and user.is_staff %}
-                <a href="{% url 'create_product' %}"><button>Criar Produto</button> </a>
-            {% endif %}
+
         </section>
     {% endblock %}
+</main>
+
+
+
 
 </body>
 </html>
