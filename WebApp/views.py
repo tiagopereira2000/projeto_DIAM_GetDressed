@@ -162,4 +162,16 @@ def edit_profile(request):
 
     return render(request, 'editProfile.html', {'form': form})
 
+def registration(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            # log in the user
+            login(request, user)
+            return redirect('home') # replace 'home' with the name of your homepage url
+    else:
+        form = RegistrationForm()
+    return render(request, 'registration.html', {'form': form})
+
 

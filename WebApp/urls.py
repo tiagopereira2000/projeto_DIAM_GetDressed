@@ -19,6 +19,7 @@ urlpatterns = [
     path('<int:product_id>/delete_product/', views.delete_product, name='delete_product'),
     path('profile', views.user_profile, name='user_profile'),
     path('edit_profile', views.edit_profile, name='edit_profile'),
+    path('registration/', views.registration, name='registration'),
 
 ]
 
