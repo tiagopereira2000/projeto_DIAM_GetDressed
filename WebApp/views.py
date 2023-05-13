@@ -67,13 +67,12 @@ def edit_product(request, product_id):
 def cart(request):
     # Obtém o cliente associado ao usuário atual
     client = request.user.client
-
     # Obtém o carrinho do cliente
+    if not Cart.objects.filter(client_id=client.id):
+        Cart.objects.create(client=client)
     cart = client.cart
-
     # Obtém todos os produtos do carrinho
     products = cart.product.all()
-
     # Renderiza o template de exibição do carrinho com os produtos
     return render(request, 'cart.html', {'products': products})
 
@@ -162,16 +161,17 @@ def edit_profile(request):
 
     return render(request, 'editProfile.html', {'form': form})
 
+
 def registration(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
             # log in the user
+            client = Client.objects.create(user=user, name=user.username)
+            Cart.objects.create(client=client)
             login(request, user)
-            return redirect('home') # replace 'home' with the name of your homepage url
+            return redirect('home')  # replace 'home' with the name of your homepage url
     else:
         form = RegistrationForm()
     return render(request, 'registration.html', {'form': form})
-
-
