@@ -1,26 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-{% load static %}
+
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="{% static 'style/css/style.css' %}">
+    {% include 'base.html' %}
     <title>Home</title>
 </head>
 <body>
-    <header>
-        <button id="home_btn">
-            <a href={% url "home" %}>Início</a>
-        </button>
-        <button id="cart_btn">
-            <a href={% url "cart" %}>Ver Carrinho</a>
-        </button>
-
-        <h1>{{ user.username }}</h1>
-        <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button type="submit">Encerrar Sessão</button>
-        </form>
-    </header>
 
     {% block content %}
         <section class="product-section">
@@ -28,15 +14,17 @@
             {% for product in products %}
                 <div class="product-item">
                 {% if product.image %}
+                    <a href={% url "product" product.id %}>
                     <img class="product-image" src="{{ product.image.url }}" alt="">
+                    </a>
                 {% endif %}
                     <br>
-                    <a href={% url "product" product.id %}>{{ product.name }} : {{ product.price }} € </a>
+                    {{ product.name }} : {{ product.price }} €
                 </div>
             {% endfor %}
         {% endif %}
             {% if user.is_authenticated and user.is_staff %}
-            <a href="{% url 'create_product' %}">Adicionar Produto</a>
+                <a href="{% url 'create_product' %}"><button>Criar Produto</button> </a>
             {% endif %}
         </section>
     {% endblock %}

@@ -91,3 +91,4 @@ class Migration(migrations.Migration):
             field=models.ManyToManyField(through='WebApp.CartProduct', to='WebApp.product'),
         ),
     ]
+

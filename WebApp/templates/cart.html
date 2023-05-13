@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-{% extends 'home.html' %}
+{% include 'base.html' %}
 <head>
     <meta charset="UTF-8">
     <title>My Cart</title>
@@ -22,11 +22,14 @@
             {% endif %}
             <input type="hidden" name="product_id" value="{{ product.id }}">
             <br>
-            <button type="submit">Remover</button>
+            <button type="submit" style="background-color: red">Remover</button>
         </form>
+
+        <br>
+
         <form method="post" action="{% url 'checkout' %}">
             {% csrf_token %}
-            <input type="submit" value="Comprar">
+            <button type="submit" style="background-color: #3e8e41">Proseguir para Pagamento</button>
         </form>
     </li>
     <br>

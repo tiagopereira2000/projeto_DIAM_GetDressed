@@ -173,6 +173,11 @@ button.container {
   width: 300px; /* Defina a largura desejada para as imagens */
   height: 300px; /* Defina a altura desejada para as imagens */
   object-fit: cover; /* Para manter a proporção da imagem e preencher o espaço definido */
+  transition: box-shadow 0.3s ease;
+}
+
+.product-item:hover {
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
 }
 
 .product-section {

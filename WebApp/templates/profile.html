@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'base.html' %}
+    <meta charset="UTF-8">
+    <title>Perfil do Utilizador</title>
+</head>
+<body>
+{% block content %}
+
+        {% if user.client %}
+            <ul>
+            <li><h1>{{ user.client.name }}</h1></li>
+            {% if user.client.profile_image %}
+                <li><img src="{% static 'media/images/default_client.png' %}"
+                         alt="default" style="height:200px; width:200px">
+                </li>
+                <br>
+                <li><a href={% url "edit_profile" %}><button style="background-color: dodgerblue">Editar Perfil</button></a></li>
+            {% endif %}
+            </ul>
+
+        {% endif %}
+
+
+{% endblock %}
+
+</body>
+</html>

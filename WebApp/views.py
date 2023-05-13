@@ -84,6 +84,7 @@ def removefromcart(request, product_id):
 
     return redirect('cart')
 
+
 @login_required(login_url='login')
 def add2cart(request, product_id):
     cart = request.user.client.cart
@@ -100,6 +101,7 @@ def add2cart(request, product_id):
     cart.save()
     return redirect('home')
 
+
 def checkout(request):
     cart = request.user.client.cart
     cart_products = CartProduct.objects.filter(cart=cart)
@@ -111,10 +113,12 @@ def checkout(request):
     }
     return render(request, 'checkout.html', context)
 
+
 def end_order(request):
     cart = request.user.client.cart
     CartProduct.objects.filter(cart=cart).delete()
     return redirect('home')
+
 
 def create_product(request):
     if request.method == 'POST':
@@ -125,3 +129,27 @@ def create_product(request):
     else:
         form = ProductForm()
     return render(request, 'create_product.html', {'form': form})
+
+
+def delete_product(request, product_id):
+    Product.objects.filter(id=product_id).delete()
+    return redirect('home')
+
+
+def user_profile(request):
+    return render(request, 'profile.html')
+
+
+def edit_profile(request):
+    client = Client.objects.get(user=request.user)
+    if request.method == 'POST':
+        form = ClientForm(request.POST, request.FILES, instance=client)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    else:
+        form = ClientForm(instance=client)
+
+    return render(request, 'editProfile.html', {'form': form})
+
+
