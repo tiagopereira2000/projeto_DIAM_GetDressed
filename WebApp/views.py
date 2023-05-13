@@ -53,6 +53,7 @@ def edit_product(request, product_id):
     return render(request, 'editProduct.html', {"form": form, "product": product})
 
 
+@login_required(login_url='login')
 def cart(request):
     # Obtém o cliente associado ao usuário atual
     client = request.user.client
@@ -83,7 +84,7 @@ def removefromcart(request, product_id):
 
     return redirect('cart')
 
-
+@login_required(login_url='login')
 def add2cart(request, product_id):
     cart = request.user.client.cart
     product = get_object_or_404(Product, id=product_id)
@@ -98,3 +99,29 @@ def add2cart(request, product_id):
     cart.product.add(product)
     cart.save()
     return redirect('home')
+
+def checkout(request):
+    cart = request.user.client.cart
+    cart_products = CartProduct.objects.filter(cart=cart)
+    products = cart.product.all()
+    total = sum(cp.product.price * cp.amount for cp in cart_products)
+    context = {
+        'products': products,
+        'total': total
+    }
+    return render(request, 'checkout.html', context)
+
+def end_order(request):
+    cart = request.user.client.cart
+    CartProduct.objects.filter(cart=cart).delete()
+    return redirect('home')
+
+def create_product(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = ProductForm()
+    return render(request, 'create_product.html', {'form': form})
