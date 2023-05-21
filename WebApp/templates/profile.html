@@ -13,13 +13,14 @@
         {% if user.client %}
             <li><h1>{{ user.client.name }}</h1></li>
             {% if user.client.profile_image %}
-                <li>
-                    <img src="{% static 'media/images/default_client.png' %}"
-                         alt="default" style="height:200px; width:200px">
-                </li>
                 <br>
                 <li>
                     <img class="product-image" src="{{ user.client.profile_image.url }}" alt="default">
+                </li>
+                {% else %}
+                <li>
+                    <img src="{% static 'media/images/default_client.png' %}"
+                         alt="default" style="height:200px; width:200px">
                 </li>
             {% endif %}
                 <li><a href={% url "edit_profile" %}><button style="background-color: dodgerblue">Editar Perfil</button></a></li>

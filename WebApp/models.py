@@ -61,7 +61,8 @@ class CartProduct(models.Model):
 
 class Order(models.Model):
     client = models.ForeignKey(Client, on_delete=models.RESTRICT)
-    products = models.ManyToManyField(Product, through="ProductOrder")
+    products = models.
+    (Product, through="ProductOrder")
     payment_method = models.CharField(max_length=30)
     charged = models.DecimalField(max_digits=6, decimal_places=2)
 
